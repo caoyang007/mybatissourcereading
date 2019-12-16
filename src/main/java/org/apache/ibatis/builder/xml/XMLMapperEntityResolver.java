@@ -26,7 +26,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Offline entity resolver for the MyBatis DTDs.
- *
+ * mybatis的dtd文件的验证用线下的模式进行的一个实现
  * @author Clinton Begin
  * @author Eduardo Macarron
  */

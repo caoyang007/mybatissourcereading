@@ -26,6 +26,13 @@ import java.lang.reflect.WildcardType;
 import java.util.Arrays;
 
 /**
+ * Type类型的基础知识
+ * Type是所有类型的父接口，它有四个子接口和一个实现类 以下是描述
+ * Class：表示的是原始类型，Class类的对象表示JVM中的一个类或接口，所有元素类型相同且维数相同的数组都共享同一个Class对象
+ * ParameterizedType：表示的是参数化类型，列入List<String>、Map<String,Integer>
+ * TypeVariable：表示的是类型变量 List<T> T就是类型变量
+ * GenericArrayType
+ * WildcardType
  * @author Iwao AVE!
  */
 public class TypeParameterResolver {

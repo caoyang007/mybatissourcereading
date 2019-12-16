@@ -227,6 +227,11 @@ public class XPathParser {
     }
   }
 
+  /**
+   * 封装了创建document对象的过程并触发了加载XML文档的过程
+   * @param inputSource
+   * @return
+   */
   private Document createDocument(InputSource inputSource) {
     // important: this must only be called AFTER common constructor
     try {
@@ -271,6 +276,12 @@ public class XPathParser {
     }
   }
 
+  /**
+   * 调用createDocument()方法之前一定要先调用commonConstructor()方法完成初始化
+   * @param validation
+   * @param variables
+   * @param entityResolver
+   */
   private void commonConstructor(boolean validation, Properties variables, EntityResolver entityResolver) {
     this.validation = validation;
     this.entityResolver = entityResolver;
