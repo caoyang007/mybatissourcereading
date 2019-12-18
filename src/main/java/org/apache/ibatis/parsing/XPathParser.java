@@ -45,7 +45,6 @@ import org.xml.sax.SAXParseException;
  * @author Kazuki Shimizu
  */
 public class XPathParser {
-
   private final Document document; //一个xml文档对象
   private boolean validation; //是否开启验证
   private EntityResolver entityResolver; //用于加载本地dtd文件 dtd是xml的描述文件 类比：类和对象的关系
@@ -112,11 +111,25 @@ public class XPathParser {
     this.document = document;
   }
 
+  /**
+   *
+   * @param xml
+   * @param validation
+   * @param variables
+   * @param entityResolver
+   */
   public XPathParser(String xml, boolean validation, Properties variables, EntityResolver entityResolver) {
     commonConstructor(validation, variables, entityResolver);
     this.document = createDocument(new InputSource(new StringReader(xml)));
   }
 
+  /**
+   *
+   * @param reader xml配置文件的输入流对象
+   * @param validation 是否开启验证，用dtd或xsd验证xml格式的正确性
+   * @param variables 可以放置一些变量的配置
+   * @param entityResolver dtd验证的对象
+   */
   public XPathParser(Reader reader, boolean validation, Properties variables, EntityResolver entityResolver) {
     commonConstructor(validation, variables, entityResolver);
     this.document = createDocument(new InputSource(reader));

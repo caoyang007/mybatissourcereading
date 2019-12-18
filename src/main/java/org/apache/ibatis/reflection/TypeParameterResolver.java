@@ -40,6 +40,7 @@ public class TypeParameterResolver {
   /**
    * @return The field type as {@link Type}. If it has type parameters in the declaration,<br>
    *         they will be resolved to the actual runtime {@link Type}s.
+   * 对字段的类型进行解析
    */
   public static Type resolveFieldType(Field field, Type srcType) {
     Type fieldType = field.getGenericType();
@@ -50,6 +51,7 @@ public class TypeParameterResolver {
   /**
    * @return The return type of the method as {@link Type}. If it has type parameters in the declaration,<br>
    *         they will be resolved to the actual runtime {@link Type}s.
+   * 得到方法的返回类型
    */
   public static Type resolveReturnType(Method method, Type srcType) {
     Type returnType = method.getGenericReturnType();
@@ -72,15 +74,16 @@ public class TypeParameterResolver {
   }
 
   private static Type resolveType(Type type, Type srcType, Class<?> declaringClass) {
-    if (type instanceof TypeVariable) {
+    if (type instanceof TypeVariable) { //解析TypeVariable类型
       return resolveTypeVar((TypeVariable<?>) type, srcType, declaringClass);
-    } else if (type instanceof ParameterizedType) {
+    } else if (type instanceof ParameterizedType) { //解析ParameterizedType类型
       return resolveParameterizedType((ParameterizedType) type, srcType, declaringClass);
-    } else if (type instanceof GenericArrayType) {
+    } else if (type instanceof GenericArrayType) { //解析GenericArrayType类型
       return resolveGenericArrayType((GenericArrayType) type, srcType, declaringClass);
     } else {
-      return type;
+      return type; //class类型
     }
+    //字段，返回值，参数不可能直接定义为WildcardType类型，但可以嵌套在别的类型中，
   }
 
   private static Type resolveGenericArrayType(GenericArrayType genericArrayType, Type srcType, Class<?> declaringClass) {
@@ -118,6 +121,13 @@ public class TypeParameterResolver {
     return new ParameterizedTypeImpl(rawType, null, args);
   }
 
+  /**
+   * 处理通配符泛型的情况
+   * @param wildcardType
+   * @param srcType
+   * @param declaringClass
+   * @return
+   */
   private static Type resolveWildcardType(WildcardType wildcardType, Type srcType, Class<?> declaringClass) {
     Type[] lowerBounds = resolveWildcardTypeBounds(wildcardType.getLowerBounds(), srcType, declaringClass);
     Type[] upperBounds = resolveWildcardTypeBounds(wildcardType.getUpperBounds(), srcType, declaringClass);

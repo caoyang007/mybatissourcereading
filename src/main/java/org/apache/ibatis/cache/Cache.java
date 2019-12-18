@@ -44,17 +44,19 @@ public interface Cache {
   /**
    * @return The identifier of this cache
    */
-  String getId();
+  String getId(); //缓存对象的id
 
   /**
    * @param key Can be any object but usually it is a {@link CacheKey}
    * @param value The result of a select.
+   * 向缓存中添加数据，一般情况下，key是CacheKey，value是查询结果
    */
   void putObject(Object key, Object value);
 
   /**
    * @param key The key
    * @return The object stored in the cache.
+   * 根据指定的key，在缓存中查找对应的结果对象
    */
   Object getObject(Object key);
 
@@ -71,11 +73,13 @@ public interface Cache {
    *
    * @param key The key
    * @return Not used
+   * 删除key对应的缓存项
    */
   Object removeObject(Object key);
 
   /**
    * Clears this cache instance.
+   * 清空缓存
    */
   void clear();
 
@@ -90,6 +94,7 @@ public interface Cache {
    * Optional. As of 3.2.6 this method is no longer called by the core.
    * <p>
    * Any locking needed by the cache must be provided internally by the cache provider.
+   *
    *
    * @return A ReadWriteLock
    */

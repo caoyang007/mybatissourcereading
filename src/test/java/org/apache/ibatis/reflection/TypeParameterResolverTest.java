@@ -36,14 +36,23 @@ import org.apache.ibatis.reflection.typeparam.Level2Mapper;
 import org.junit.jupiter.api.Test;
 
 class TypeParameterResolverTest {
+  /**
+   * 测试返回的类型是Class对象类型
+   * @throws Exception
+   */
   @Test
   void testReturn_Lv0SimpleClass() throws Exception {
     Class<?> clazz = Level0Mapper.class;
     Method method = clazz.getMethod("simpleSelect");
     Type result = TypeParameterResolver.resolveReturnType(method, clazz);
+    System.out.println(result.getTypeName());
     assertEquals(Double.class, result);
   }
 
+  /**
+   * 测试方法的返回类型是void
+   * @throws Exception
+   */
   @Test
   void testReturn_SimpleVoid() throws Exception {
     Class<?> clazz = Level1Mapper.class;
@@ -52,6 +61,10 @@ class TypeParameterResolverTest {
     assertEquals(void.class, result);
   }
 
+  /**
+   * 测试方法的返回类型是double
+   * @throws Exception
+   */
   @Test
   void testReturn_SimplePrimitive() throws Exception {
     Class<?> clazz = Level1Mapper.class;
@@ -65,21 +78,34 @@ class TypeParameterResolverTest {
     Class<?> clazz = Level1Mapper.class;
     Method method = clazz.getMethod("simpleSelect");
     Type result = TypeParameterResolver.resolveReturnType(method, clazz);
+    System.out.println(result.getTypeName());
     assertEquals(Double.class, result);
   }
 
+  /**
+   * 测试方法的返回类型是参数化类型的List<Duble>
+   * @throws Exception
+   */
   @Test
   void testReturn_SimpleList() throws Exception {
     Class<?> clazz = Level1Mapper.class;
     Method method = clazz.getMethod("simpleSelectList");
     Type result = TypeParameterResolver.resolveReturnType(method, clazz);
+    System.out.println(result.getTypeName());
     assertTrue(result instanceof ParameterizedType);
     ParameterizedType paramType = (ParameterizedType) result;
     assertEquals(List.class, paramType.getRawType());
+    System.out.println(paramType.getRawType().getTypeName());
     assertEquals(1, paramType.getActualTypeArguments().length);
+    System.out.println(paramType.getActualTypeArguments().length);
     assertEquals(Double.class, paramType.getActualTypeArguments()[0]);
+    System.out.println(paramType.getActualTypeArguments()[0].getTypeName());
   }
 
+  /**
+   * 测试方法的返回类型是参数化类型Map<String,Integer>
+   * @throws Exception
+   */
   @Test
   void testReturn_SimpleMap() throws Exception {
     Class<?> clazz = Level1Mapper.class;

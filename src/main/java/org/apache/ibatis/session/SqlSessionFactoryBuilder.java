@@ -27,7 +27,6 @@ import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 
 /**
  * Builds {@link SqlSession} instances.
- *
  * @author Clinton Begin
  */
 public class SqlSessionFactoryBuilder {
@@ -44,6 +43,13 @@ public class SqlSessionFactoryBuilder {
     return build(reader, null, properties);
   }
 
+  /**
+   * mybatis的初始化入口
+   * @param reader
+   * @param environment
+   * @param properties
+   * @return
+   */
   public SqlSessionFactory build(Reader reader, String environment, Properties properties) {
     try {
       //读取配置文件 通过创建XMLConfigBuilder对象来解析mybatis-config.xml配置文件

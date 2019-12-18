@@ -105,6 +105,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 
   /**
    * 解析mybatis-config.xml配置文件的入口
+   * 解析所有的元素标签，最后将得到的数据封装为一个Configuration对象
    * @return
    */
   public Configuration parse() {
@@ -118,6 +119,10 @@ public class XMLConfigBuilder extends BaseBuilder {
     return configuration;
   }
 
+  /**
+   * 解析Configuration元素标签
+   * @param root
+   */
   private void parseConfiguration(XNode root) {
     try {
       //issue #117 read properties first
@@ -128,7 +133,7 @@ public class XMLConfigBuilder extends BaseBuilder {
       //设置vfsImpl字段
       loadCustomVfs(settings);
       loadCustomLogImpl(settings);
-      //解析<typeAliases节点
+      //解析<typeAliases>节点
       typeAliasesElement(root.evalNode("typeAliases"));
       //解析<plugins>节点
       pluginElement(root.evalNode("plugins"));

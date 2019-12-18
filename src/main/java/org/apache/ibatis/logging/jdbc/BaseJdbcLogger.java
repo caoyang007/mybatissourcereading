@@ -34,13 +34,14 @@ import org.apache.ibatis.reflection.ArrayUtil;
 
 /**
  * Base class for proxies to do logging.
- *
+ * 是该包下面的所有logger类的父类
  * @author Clinton Begin
  * @author Eduardo Macarron
  */
 public abstract class BaseJdbcLogger {
 
-  protected static final Set<String> SET_METHODS;
+  protected static final Set<String> SET_METHODS; //记录了PreparedStatement接口中定义的常用的set*()方法
+  //记录了Statement接口和PreparedStatement接口中与执行SQL语句相关的方法
   protected static final Set<String> EXECUTE_METHODS = new HashSet<>();
 
   private final Map<Object, Object> columnMap = new HashMap<>();

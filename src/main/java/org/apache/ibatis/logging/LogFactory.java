@@ -28,7 +28,7 @@ public final class LogFactory {
    */
   public static final String MARKER = "MYBATIS";
 
-  private static Constructor<? extends Log> logConstructor;
+  private static Constructor<? extends Log> logConstructor; //当前使用的第三方日志组件的适配器
 
   static {
     tryImplementation(LogFactory::useSlf4jLogging);

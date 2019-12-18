@@ -21,12 +21,14 @@ import java.net.URL;
 /**
  * A class to wrap access to multiple class loaders making them work as one
  *
+ * 是一个ClassLoader的包装器，其中包含了多个ClassLoader对象。通过调整多个类加载器的使用顺序，ClassLoaderWrapper
+ * 可以确保返回给系统使用的是正确的类加载器。
  * @author Clinton Begin
  */
 public class ClassLoaderWrapper {
 
-  ClassLoader defaultClassLoader;
-  ClassLoader systemClassLoader;
+  ClassLoader defaultClassLoader; //应用默认的类加载器
+  ClassLoader systemClassLoader; //系统的默认的类加载器就是SystemClassLoader 也称为Application ClassLoader
 
   ClassLoaderWrapper() {
     try {

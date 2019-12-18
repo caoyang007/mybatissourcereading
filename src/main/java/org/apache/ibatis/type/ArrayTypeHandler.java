@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 对数据的类型处理
  * @author Clinton Begin
  */
 public class ArrayTypeHandler extends BaseTypeHandler<Object> {
@@ -71,10 +72,19 @@ public class ArrayTypeHandler extends BaseTypeHandler<Object> {
     STANDARD_MAPPING.put(URL.class, JdbcType.DATALINK.name());
   }
 
+  //这个有什么用，我觉得没有什么用呀
   public ArrayTypeHandler() {
     super();
   }
 
+  /**
+   * 对非空数据的sql语句赋值
+   * @param ps
+   * @param i
+   * @param parameter
+   * @param jdbcType
+   * @throws SQLException
+   */
   @Override
   public void setNonNullParameter(PreparedStatement ps, int i, Object parameter, JdbcType jdbcType)
       throws SQLException {

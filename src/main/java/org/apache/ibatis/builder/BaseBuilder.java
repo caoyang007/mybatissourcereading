@@ -74,6 +74,11 @@ public abstract class BaseBuilder {
     return new HashSet<>(Arrays.asList(value.split(",")));
   }
 
+  /**
+   * JdbcType是一个枚举了所有的Mysql类型的枚举
+   * @param alias
+   * @return
+   */
   protected JdbcType resolveJdbcType(String alias) {
     if (alias == null) {
       return null;
@@ -143,6 +148,13 @@ public abstract class BaseBuilder {
     return resolveTypeHandler(javaType, typeHandlerType);
   }
 
+
+  /**
+   * 依赖TypeHandlerRegistry 进行Mysql和java类型的转换
+   * @param javaType
+   * @param typeHandlerType
+   * @return
+   */
   protected TypeHandler<?> resolveTypeHandler(Class<?> javaType, Class<? extends TypeHandler<?>> typeHandlerType) {
     if (typeHandlerType == null) {
       return null;
@@ -156,6 +168,12 @@ public abstract class BaseBuilder {
     return handler;
   }
 
+  /**
+   * 依赖TypeAliasRegistry 解析别名
+   * @param alias
+   * @param <T>
+   * @return
+   */
   protected <T> Class<? extends T> resolveAlias(String alias) {
     return typeAliasRegistry.resolveAlias(alias);
   }

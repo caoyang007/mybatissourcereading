@@ -36,8 +36,8 @@ import org.apache.ibatis.cache.CacheException;
 public class BlockingCache implements Cache {
 
   private long timeout;
-  private final Cache delegate;
-  private final ConcurrentHashMap<Object, ReentrantLock> locks;
+  private final Cache delegate; //被修饰的底层Cache对象
+  private final ConcurrentHashMap<Object, ReentrantLock> locks;//每个可以都有对应的ReentrantLock对象
 
   public BlockingCache(Cache delegate) {
     this.delegate = delegate;
@@ -90,6 +90,7 @@ public class BlockingCache implements Cache {
   }
 
   private void acquireLock(Object key) {
+    //得到一个锁，如果没有，就自己实例化一个
     Lock lock = getLockForKey(key);
     if (timeout > 0) {
       try {
