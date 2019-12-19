@@ -28,6 +28,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
 
 /**
+ * 是Mybatis的核心接口之一，其中定义了数据库操作的基本方法，在实际应用中经常涉及的SqlSession接口的功能，
+ * 都是基于Executor接口实现的。
  * @author Clinton Begin
  */
 public interface Executor {

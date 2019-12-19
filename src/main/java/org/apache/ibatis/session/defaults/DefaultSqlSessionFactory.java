@@ -33,6 +33,8 @@ import org.apache.ibatis.transaction.managed.ManagedTransactionFactory;
 
 /**
  * 默认的SqlSessionFactory实现类
+ * 提供俩种创建DefaultSqlSession对象的方式，一种方式时通过数据源获取数据库连接，并创建Executor对象和DefaultSqlSession对象
+ * 另一种方式是用户提供数据库连接对象，DefaultSqlSessionFactory会使用数据库连接对象创建Executor对象以及DefaultSqlSession对象
  * @author Clinton Begin
  */
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
@@ -90,6 +92,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
   /**
    * 开始一个SqlSession对象
+   * 开启一个SqlSession对象需要Configuration对象 Configuration对象保罗万象
    * @param execType
    * @param level
    * @param autoCommit
@@ -98,9 +101,13 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
   private SqlSession openSessionFromDataSource(ExecutorType execType, TransactionIsolationLevel level, boolean autoCommit) {
     Transaction tx = null;
     try {
+      //从Configuration对象中获取Environment对象
       final Environment environment = configuration.getEnvironment();
+      //从Environment对象中获取事务工厂实例，如果environment对象为空，或者没有事务工厂实例，就自己实例化一个，叫ManagedTransactionFactory
       final TransactionFactory transactionFactory = getTransactionFactoryFromEnvironment(environment);
+      //从事务工厂生成一个事务对象
       tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);
+      //从Configuration对象中生成执行器对象，根据执行器的类型，生成不同的执行器 SIMPLE, REUSE, BATCH
       final Executor executor = configuration.newExecutor(tx, execType);
       return new DefaultSqlSession(configuration, executor, autoCommit);
     } catch (Exception e) {

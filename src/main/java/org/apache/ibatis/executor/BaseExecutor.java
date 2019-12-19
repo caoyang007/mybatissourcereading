@@ -45,22 +45,25 @@ import org.apache.ibatis.transaction.Transaction;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
+ * 所有执行器的基类，继承Executor接口，封装通用的方法
+ * 这里使用了模板方法模式
+ * BaseExecutor中主要提供了缓存管理和事务管理的基本功能
  * @author Clinton Begin
  */
 public abstract class BaseExecutor implements Executor {
 
   private static final Log log = LogFactory.getLog(BaseExecutor.class);
 
-  protected Transaction transaction;
-  protected Executor wrapper;
+  protected Transaction transaction; //实现事务的提交，回滚和关闭操作
+  protected Executor wrapper; //其中封装的Executor对象
 
-  protected ConcurrentLinkedQueue<DeferredLoad> deferredLoads;
-  protected PerpetualCache localCache;
-  protected PerpetualCache localOutputParameterCache;
+  protected ConcurrentLinkedQueue<DeferredLoad> deferredLoads; //延迟加载队列
+  protected PerpetualCache localCache; //一级缓存，用户缓存查询结果集映射得到的结果对象
+  protected PerpetualCache localOutputParameterCache; //一级缓存，用户缓存输出类型的参数
   protected Configuration configuration;
 
-  protected int queryStack;
-  private boolean closed;
+  protected int queryStack; //用于记录嵌套查询的层数
+  private boolean closed; //
 
   protected BaseExecutor(Configuration configuration, Transaction transaction) {
     this.transaction = transaction;

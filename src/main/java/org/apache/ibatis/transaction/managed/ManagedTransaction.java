@@ -38,10 +38,10 @@ public class ManagedTransaction implements Transaction {
 
   private static final Log log = LogFactory.getLog(ManagedTransaction.class);
 
-  private DataSource dataSource;
-  private TransactionIsolationLevel level;
-  private Connection connection;
-  private final boolean closeConnection;
+  private DataSource dataSource; //数据源
+  private TransactionIsolationLevel level;// 事务等级
+  private Connection connection; //数据库连接
+  private final boolean closeConnection; //是否关闭连接
 
   public ManagedTransaction(Connection connection, boolean closeConnection) {
     this.connection = connection;

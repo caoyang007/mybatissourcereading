@@ -25,6 +25,7 @@ import org.apache.ibatis.transaction.TransactionFactory;
  */
 public final class Environment {
   private final String id; //指定环境的唯一id 在xml配置中表现为id="development"
+
   private final TransactionFactory transactionFactory; //事务工厂类
   private final DataSource dataSource;  //java.sql的数据源接口 实现的有很多 DuridDataSource是最好的
 
@@ -43,6 +44,9 @@ public final class Environment {
     this.dataSource = dataSource;
   }
 
+  /**
+   * 静态内部类，通常用于构建外部类的实例
+   */
   public static class Builder {
     private final String id;
     private TransactionFactory transactionFactory;
