@@ -27,7 +27,7 @@ public final class Environment {
   private final String id; //指定环境的唯一id 在xml配置中表现为id="development"
 
   private final TransactionFactory transactionFactory; //事务工厂类
-  private final DataSource dataSource;  //java.sql的数据源接口 实现的有很多 DuridDataSource是最好的
+  private final DataSource dataSource;  //java.sql的数据源接口 实现的有很多 DruidDataSource是最好的
 
   public Environment(String id, TransactionFactory transactionFactory, DataSource dataSource) {
     if (id == null) {

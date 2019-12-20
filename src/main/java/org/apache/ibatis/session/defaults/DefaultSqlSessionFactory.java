@@ -39,7 +39,7 @@ import org.apache.ibatis.transaction.managed.ManagedTransactionFactory;
  */
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
-  private final Configuration configuration;
+  private final Configuration configuration; //最全能的配置对象，mybatis的大多配置基本都在里面
 
   public  DefaultSqlSessionFactory(Configuration configuration) {
     this.configuration = configuration;

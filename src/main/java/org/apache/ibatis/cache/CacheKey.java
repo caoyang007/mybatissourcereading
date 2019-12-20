@@ -23,6 +23,7 @@ import java.util.StringJoiner;
 import org.apache.ibatis.reflection.ArrayUtil;
 
 /**
+ * mybatis提供了CacheKey类来表示缓存项的key，在一个cacheKey对象中可以封装多个影响缓存项的因素。
  * @author Clinton Begin
  */
 public class CacheKey implements Cloneable, Serializable {
@@ -43,8 +44,8 @@ public class CacheKey implements Cloneable, Serializable {
   private static final int DEFAULT_MULTIPLIER = 37;
   private static final int DEFAULT_HASHCODE = 17;
 
-  private final int multiplier;
-  private int hashcode;
+  private final int multiplier; //参与计算的hashCode，默认值是37
+  private int hashcode; //CacheKey对象的hashCode，
   private long checksum;
   private int count;
   // 8/21/2017 - Sonarlint flags this as needing to be marked transient.  While true if content is not serializable, this is not always true and thus should not be marked transient.

@@ -15,6 +15,7 @@
  */
 package org.apache.ibatis.cache.decorators;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ import org.apache.ibatis.cache.Cache;
 
 /**
  * Lru (least recently used) cache decorator.
- *
+ * 按照近期最少使用算法，进行缓存清理的装饰器，在需要清理的时候，它是清理最近最少使用的缓存项
  * @author Clinton Begin
  */
 public class LruCache implements Cache {
@@ -46,7 +47,12 @@ public class LruCache implements Cache {
     return delegate.getSize();
   }
 
+  /**
+   * 重新设置缓存大小，会重置keyMap字段
+   * @param size
+   */
   public void setSize(final int size) {
+    //构造函数的第三个参数会改变其记录的顺序
     keyMap = new LinkedHashMap<Object, Object>(size, .75F, true) {
       private static final long serialVersionUID = 4267176411845948333L;
 

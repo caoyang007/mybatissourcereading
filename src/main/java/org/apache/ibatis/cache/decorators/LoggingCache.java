@@ -24,8 +24,8 @@ import org.apache.ibatis.logging.LogFactory;
  */
 public class LoggingCache implements Cache {
 
-  private final Log log;
-  private final Cache delegate;
+  private final Log log; //日志模块
+  private final Cache delegate; //底层的缓存接口
   protected int requests = 0;
   protected int hits = 0;
 

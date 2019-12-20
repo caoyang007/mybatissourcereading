@@ -23,7 +23,8 @@ import org.apache.ibatis.cache.CacheException;
 
 /**
  * @author Clinton Begin
- * 提供了缓存的基本实现
+ * 只有该类提供了缓存的基本实现 其他的以cache结尾的类都是装饰器类
+ * 它在装饰器模式中扮演了具体的产品接口实现类
  */
 public class PerpetualCache implements Cache {
 

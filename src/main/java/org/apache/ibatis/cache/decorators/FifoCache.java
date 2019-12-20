@@ -22,14 +22,14 @@ import org.apache.ibatis.cache.Cache;
 
 /**
  * FIFO (first in, first out) cache decorator.
- *
+ * 先进先出版本的装饰器，当向缓存添加数据时，如果缓存项的个数已经达到了上限，则会将缓存中最老的缓存项删除
  * @author Clinton Begin
  */
 public class FifoCache implements Cache {
 
-  private final Cache delegate;
-  private final Deque<Object> keyList;
-  private int size;
+  private final Cache delegate; //被修饰的底层Cache对象
+  private final Deque<Object> keyList; //用户记录key进入缓存的先后顺序。
+  private int size; //记录了缓存项的上限，超过该值，清理最老的缓存项
 
   public FifoCache(Cache delegate) {
     this.delegate = delegate;
