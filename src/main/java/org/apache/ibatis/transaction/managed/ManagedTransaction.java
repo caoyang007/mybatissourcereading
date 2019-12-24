@@ -31,6 +31,7 @@ import org.apache.ibatis.transaction.Transaction;
  * By default, it closes the connection but can be configured not to do it.
  *
  * @author Clinton Begin
+ * ManagedTransaction对象就是简单的获取一个数据源的连接或者关闭连接，没有对事物的提交或回滚做任何的操作
  *
  * @see ManagedTransactionFactory
  */
@@ -38,7 +39,7 @@ public class ManagedTransaction implements Transaction {
 
   private static final Log log = LogFactory.getLog(ManagedTransaction.class);
 
-  private DataSource dataSource; //数据源
+  private DataSource dataSource; //数据源 其实DataSource就是对Connection的一个封装，从里面取连接的一个数据源池
   private TransactionIsolationLevel level;// 事务等级
   private Connection connection; //数据库连接
   private final boolean closeConnection; //是否关闭连接
