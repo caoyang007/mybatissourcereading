@@ -33,10 +33,12 @@ import org.apache.ibatis.io.ResolverUtil;
 import org.apache.ibatis.io.Resources;
 
 /**
+ * 类型别名的注册器
  * @author Clinton Begin
  */
 public class TypeAliasRegistry {
 
+  //别名对应的具体的类型 即Class对象
   private final Map<String, Class<?>> typeAliases = new HashMap<>();
 
   public TypeAliasRegistry() {

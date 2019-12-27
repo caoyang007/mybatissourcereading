@@ -1,0 +1,110 @@
+对configuration元素的描述
+<configuration>
+	<properties></properties>
+	<settings></settings>
+	<typeAliases></typeAliases>
+	<typeHandlers></typeHandlers>
+	<objectFactory></objectFactory>
+	<reflectorFactory></reflectorFactory>
+	<plugins></plugins>
+	<enviroments></enviroments>
+	<databaseIdProvider></databaseIdProvider>
+	<mappers></mappers>
+</configuration>
+
+对databaseIdProvider元素的描述
+<databaseIdProvider type=""> type属性必须
+	<property></property> 0-无数个这样的标签
+</databaseIdProvider>
+
+对properties元素的描述
+<properties resource="" url="">
+	<property></property>  0-无数个这样的标签
+</properties>
+
+对property元素的描述
+<property name="" value="" /> 这俩个属性都是必须的
+
+对settings元素的描述
+<settings>
+	<setting></setting> 可以有无数个这样的标签
+</settings>
+
+对setting元素的描述
+<setting name="" value=""/> 这俩个属性的值都是必须的
+
+对typeAliases元素的描述
+<typeAliases>
+	<typeAlias></typeAlias> 0-无数个这样的标签
+	<package></package> 0-无数个这样的标签
+</typeAliases>
+
+对typeAlias元素的描述
+<typeAlias type="" alias="" /> type属性是必须的
+	
+对typeHandlers元素的描述
+<typeHandlers>
+	<typeHandler></typeHandler> 0-无数个这样的标签
+	<package></package> 0-无数个这样的标签
+</typeHandlers>
+
+对typeHandler元素的描述
+<typeHandler javaType="" jdbcType="" handler="" /> handler属性是必须的
+
+对objectFactory元素的描述
+<objectFactory type=""> type属性是必须的
+	<property></property> 0-无数个这样的标签
+</objectFactory>
+
+对objectWrapperFactory元素的描述
+<objectWrapperFactory type=""> type属性是必须的
+	
+</objectWrapperFactory>
+
+
+对reflectoryFactory元素的描述
+<reflectoryFactory type="" /> type属性值是必须的
+
+对plugins元素的描述
+<plugins>
+	<plugin></plugin>
+</plugins>
+
+对plugin元素的描述
+<plugin interceptor="" > interceptor属性值是必须的
+	<property></property>
+</plugin>
+
+对enviroments元素的描述
+<enviroments default=""> default属性值是必须的
+	<enviroment></enviroment>
+</enviroments>
+
+对environment元素的描述
+<enviroment id=""> id属性是必须的
+	<transactionManager></transactionManager>
+	<dataSource></dataSource>
+</enviroment>
+
+对transactionManager元素的描述
+<transactionManager type=""> type属性值是必须的
+	<property></property>
+</transactionManager>
+
+对dataSource元素的描述
+<datasource type=""> type属性值是必须的
+	<property></property>
+</dataSource>
+
+对mappers元素的描述
+<mappers>
+	<mapper></mapper>
+	<package></package>
+</mappers>
+
+对mapper元素的描述
+<mapper resource="" url="" class="" />
+
+对package元素的描述
+<package name="" /> name属性是必须的
+

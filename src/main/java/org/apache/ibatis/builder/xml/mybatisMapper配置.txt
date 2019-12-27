@@ -1,0 +1,276 @@
+对mapper元素的描述
+<mapper namespace="">
+	<cache-ref></cache-ref> 可以有多个这样的标签
+	<cache></cache> 可以有多个这样的标签
+	<resultMap></resultMap> 0-无数个这样的标签
+	<parameterMap></parameterMap> 0-无数个这样的标签
+	<sql></sql> 0-无数个这样的标签
+	<insert></insert> 0-无数个这样的标签
+	<update></update> 0-无数个这样的标签
+	<delete></delete> 0-无数个这样的标签
+	<select></select> 0-无数个这样的标签
+</mapper>
+
+对cache-ref的描述
+<cache-ref namespace=""></cache-ref> namespace属性是必须的
+
+对cache的描述
+<cache type="" eviction="" flushInterval="" size="" readOnly="" blocking="" >
+	<property></property> 0-无数个这样的标签
+</cache>
+
+
+对parameterMap元素的描述
+<parameterMap id="" name="">  id和name属性是必须的
+	<parameter></parameter>    0-无数个这样的标签
+</parameterMap> 
+
+对parameter元素的描述
+<parameter property="" javaType="" jdbcType="" mode="" resultMap="" scale="" typeHandler="">  
+
+property属性是必须的 mode必须是IN OUT INOUT三个中的一个
+
+</parameter>
+
+对resultMap元素的描述
+<resultMap id="" type="" extends="" autoMapping=""> id和type属性是必须的，autoMapping是一个true或false的枚举
+	<constructor></constructor> 可以没有这个标签
+	<id></id> 0-无数个这样的标签
+	<result></result> 0-无数个这样的标签
+	<association><association> 0-无数个这样的标签
+	<collection></collection> 0-无数个这样的标签
+	<discriminator><discriminator>  可以没有这个标签
+</resultMap>
+
+对constructor元素的描述
+<constructor>
+	<idArg></idArg>  0-无数个这样的标签
+	<arg></arg> 0-无数个这样的标签
+</constructor>
+
+对id元素的描述
+<id property="" javaType="" column="" jdbcType="" typeHandler="" />
+
+对result元素的描述
+<result property="" javaType="" column="" jdbcType="" typeHandler="" />
+
+对idArg元素的描述
+<idArg javaType="" column="" jdbcType="" typeHandler="" select="" resultMap="" name="" columnPrefix="" />
+
+对arg元素的描述
+<arg javaType="" column="" jdbcType="" typeHandler="" select="" resultMap="" name="" columnPrefix="" />
+
+对collection元素的描述
+<collection property="" colunm="" javaType="" ofType="" jdbcType="" select="" resultMap="" typeHandler="" notNullColumn="" columnPrefix="" resutlSet="" foreignColumn="" autoMapping="" fetchType="" > property属性是必须的 autoMapping是一个true或false的枚举 fetchType是一个lazy和eager的枚举
+	<constructor></constructor> 可以没有这个标签
+	<id></id> 0-无数个这样的标签
+	<result></result> 0-无数个这样的标签
+	<association><association> 0-无数个这样的标签
+	<collection></collection> 0-无数个这样的标签
+	<discriminator><discriminator>  可以没有这个标签
+</collection>
+
+对association元素的描述
+<association property="" colunm="" javaType=""  jdbcType="" select="" resultMap="" typeHandler="" notNullColumn="" columnPrefix="" resutlSet="" foreignColumn="" autoMapping="" fetchType="" > property属性是必须的 autoMapping是一个true或false的枚举 fetchType是一个lazy和eager的枚举
+	<constructor></constructor> 可以没有这个标签
+	<id></id> 0-无数个这样的标签
+	<result></result> 0-无数个这样的标签
+	<association><association> 0-无数个这样的标签
+	<collection></collection> 0-无数个这样的标签
+	<discriminator><discriminator>  可以没有这个标签
+</association>
+
+对case元素的描述 
+<case value="" resultMap="" resultType="" > value属性是必须的
+	<constructor></constructor> 可以没有这个标签
+	<id></id> 0-无数个这样的标签
+	<result></result> 0-无数个这样的标签
+	<association><association> 0-无数个这样的标签
+	<collection></collection> 0-无数个这样的标签
+	<discriminator><discriminator>  可以没有这个标签
+</case>
+
+对property元素的描述
+<property name="" value="" /> 俩个属性都是必须的
+
+对typeAlias元素的描述
+<typeAlias alias="" type="" /> 俩个属性都是必须的
+
+对select元素的描述
+<select id="" parameterMap="" parameterType="" resultMap="" resultType="" resultSetType="" statementType="" fetchSize="" timeout="" flushCache="" useCache="" databaseId="" lang="" resultOrdered="" resultSets="" > id属性是必须的 resultSetType是一个FORWARD_ONLY SCROLL_INSENSITIVE SCROLL_SENSITIVE DEFAULT的枚举 statementType是一个STATEMENT PREPARED CALLABLE的枚举 flushCache是一个true和false的枚举 useCache是一个true false的枚举 resultOrdered是一个true false的枚举
+	<inclued></inclued> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</select>
+
+对insert元素的描述
+<insert id="" parameterMap="" paramerterType="" timeout="" flushCache="" statementType="" keyProperty="" useGeneratedKeys="" keyColumn="" databaseId="" lang="" > id元素是必须的 flushCache是一个true false的枚举 statementType是一个STATEMENT PREPARED CALLABLE的枚举 useGeneratedKeys是一个true false的枚举
+	<selectKey></selectKey> 0-无数个这样的标签
+	<inclued></inclued> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</insert>
+
+对selectKey元素的描述
+<selectKey resultType="" statementType="" keyProperty="" keyColumn="" order="" databaseId=""> statementType是一个STATEMENT PREPARED CALLABLE的枚举 order是一个BEFORE AFTER的枚举
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</selectKey/>
+
+对update元素的描述
+<update id="" parameterMap="" parameterType="" timeout="" flushCache="" statementType="" keyProperty="" useGeneratedKeys="" keyColumn="" databaseId="" lang="" > id属性是必须的 flushCache是一个true false的枚举 statementType是一个STATEMENT PREPARED CALLABLE的枚举 useGeneratedKeys是一个true false的枚举
+	<selectKey></selectKey> 0-无数个这样的标签
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</update>
+
+
+对delete元素的描述
+<delete id="" parameterMap="" parameterType="" timeout="" flushCache="" statementType="" databaseId="" lang="">
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</delete>
+
+对include元素的描述
+<include refid="" > refid属性是必须的
+	<property></property> 0-无数个这样的标签
+</include>
+
+对bind元素的描述
+<bind name="" value=""/> 俩个属性都是必须的
+
+对sql元素的描述
+<sql id="" lang="" databaseId="" > id是必须的
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签 
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</sql>
+
+trim元素的描述
+<trim prefix="" prefixOverrides="" suffix="" suffixOverrides="">
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签 
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</trim>
+
+对where元素的描述
+<where>
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签 
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</where>
+
+对set元素的描述
+<set>
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签 
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</set>
+
+对foreach元素的描述
+<foreach collection="" item="" index="" open="" close="" separator=""> collection是必须的
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签 
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</foreach>
+
+对choose元素的描述
+<choose>
+	<when></when>  0-无数个这样的标签
+	<otherwise></otherwise> 可以没有这个标签
+</choose>
+
+对when元素的描述
+<when test=""> test属性是必须的
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签 
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</when>
+
+对otherwise元素的描述
+<otherwise>
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签 
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</otherwise>
+
+对if元素的描述
+<if test=""> test属性是必须的
+	<include></include> 0-无数个这样的标签
+	<trim></trim> 0-无数个这样的标签
+	<where></where> 0-无数个这样的标签
+	<set></set> 0-无数个这样的标签 
+	<foreach></foreach> 0-无数个这样的标签
+	<choose></choose> 0-无数个这样的标签
+	<if></if> 0-无数个这样的标签
+	<bind></bind> 0-无数个这样的标签
+</if>
+
+
+
+
+
+
