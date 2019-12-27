@@ -29,22 +29,23 @@ import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.Configuration;
 
 /**
- * 表示映射配置文件中定义的SQL节点
+ * 表示映射配置文件中定义的SQL的节点
  * @author Clinton Begin
  */
 public final class MappedStatement {
 
-  private String resource;
-  private Configuration configuration;
-  private String id;
-  private Integer fetchSize;
-  private Integer timeout;
-  private StatementType statementType;
-  private ResultSetType resultSetType;
-  private SqlSource sqlSource;
-  private Cache cache;
-  private ParameterMap parameterMap;
-  private List<ResultMap> resultMaps;
+  private String resource; //应该是命名空间（后面确认）
+  private Configuration configuration;//mybatis的配置信息的疯转类
+  private String id; //命名空间中唯一标识符(后面确定)
+  private Integer fetchSize; //尝试让驱动程序每次批量返回的结果行数和这个设置值相同
+  private Integer timeout; //超时
+  private StatementType statementType; //三种Statement Statement PreparedStatement 和CallableStatement
+  private ResultSetType resultSetType; //
+  private SqlSource sqlSource; //在映射文件中或注解中配置的SQL语句，里面有占位符或动态SQL语句的相关节点
+  private Cache cache; //缓存相关
+  private ParameterMap parameterMap; //这个将被放弃
+  private List<ResultMap> resultMaps; //
+
   private boolean flushCacheRequired;
   private boolean useCache;
   private boolean resultOrdered;

@@ -142,7 +142,7 @@ public class Configuration {
    */
   protected boolean callSettersOnNulls;
   /**
-   * 允许使用方法签名中的名称作为语句参数名称，为了使用该特性，你的项目必须使用java8编译，并且加上-parameterrs选项(在3.4.1中新增)
+   * 允许使用方法签名中的参数名称作为语句参数名称，为了使用该特性，你的项目必须使用java8编译，并且加上-parameterrs选项(在3.4.1中新增)
    */
   protected boolean useActualParamName = true;
   /**

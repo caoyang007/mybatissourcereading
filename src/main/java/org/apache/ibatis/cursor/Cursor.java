@@ -22,7 +22,7 @@ import java.io.Closeable;
  * Cursors are a perfect fit to handle millions of items queries that would not normally fits in memory.
  * If you use collections in resultMaps then cursor SQL queries must be ordered (resultOrdered="true")
  * using the id columns of the resultMap.
- *
+ * 游标查询的接口
  * @author Guillaume Darmont / guillaume@dropinocean.com
  */
 public interface Cursor<T> extends Closeable, Iterable<T> {

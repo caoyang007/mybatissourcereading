@@ -28,6 +28,9 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
+/**
+ * 方法的参数解析器
+ */
 public class ParamNameResolver {
 
   public static final String GENERIC_NAME_PREFIX = "param";
@@ -45,13 +48,20 @@ public class ParamNameResolver {
    * <li>aMethod(int a, RowBounds rb, int b) -&gt; {{0, "0"}, {2, "1"}}</li>
    * </ul>
    */
-  private final SortedMap<Integer, String> names;
+  private final SortedMap<Integer, String> names; //记录的是一个方法的参数的信息
 
-  private boolean hasParamAnnotation;
+  private boolean hasParamAnnotation; //是否有@Param注解
 
+
+  /**
+   * 这个方法我完全看懂了 就是记录一下一个方法中带@Param注解的参数的信息，将其封装到一个TreeMap中
+   * @param config
+   * @param method
+   */
   public ParamNameResolver(Configuration config, Method method) {
+    //得到方法的参数的类型
     final Class<?>[] paramTypes = method.getParameterTypes();
-    final Annotation[][] paramAnnotations = method.getParameterAnnotations();
+    final Annotation[][] paramAnnotations = method.getParameterAnnotations(); //获取方法的参数注解信息，参数的位置是数组的第一个下标，参数的注解信息是第二个下标
     final SortedMap<Integer, String> map = new TreeMap<>();
     int paramCount = paramAnnotations.length;
     // get names from @Param annotations
@@ -88,6 +98,7 @@ public class ParamNameResolver {
     return ParamNameUtil.getParamNames(method).get(paramIndex);
   }
 
+  //判断一个类是否是RowBounds或ResultHandler的子类或其本身
   private static boolean isSpecialParameter(Class<?> clazz) {
     return RowBounds.class.isAssignableFrom(clazz) || ResultHandler.class.isAssignableFrom(clazz);
   }
@@ -106,6 +117,8 @@ public class ParamNameResolver {
    * In addition to the default names, this method also adds the generic names (param1, param2,
    * ...).
    * </p>
+   * 因为SqlSession所有需要参数的方法都只有一个Object参数，但是我们写的接口可以有多个参数，这里是将所有的参数封装为一个Map返回
+   * args是实参
    */
   public Object getNamedParams(Object[] args) {
     final int paramCount = names.size();

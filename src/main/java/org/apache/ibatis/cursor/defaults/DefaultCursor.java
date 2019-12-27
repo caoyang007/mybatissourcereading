@@ -33,6 +33,8 @@ import org.apache.ibatis.session.RowBounds;
  * This implementation is not thread safe.
  *
  * @author Guillaume Darmont / guillaume@dropinocean.com
+ *
+ * 游标查询接口的默认实现类
  */
 public class DefaultCursor<T> implements Cursor<T> {
 
@@ -47,6 +49,7 @@ public class DefaultCursor<T> implements Cursor<T> {
   private boolean iteratorRetrieved;
 
   private CursorStatus status = CursorStatus.CREATED;
+
   private int indexWithRowBound = -1;
 
   private enum CursorStatus {

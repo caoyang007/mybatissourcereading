@@ -39,6 +39,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 /**
+ * 对Mapper接口的 方法 的封装
  * @author Clinton Begin
  * @author Eduardo Macarron
  * @author Lasse Voss
@@ -216,10 +217,15 @@ public class MapperMethod {
 
   }
 
+
+  /**
+   * 这个类的主要作用是根据接口的全限定类名和方法名确定唯一的一个MappedStatement
+   */
   public static class SqlCommand {
 
     private final String name;
     private final SqlCommandType type;
+
 
     public SqlCommand(Configuration configuration, Class<?> mapperInterface, Method method) {
       final String methodName = method.getName();
@@ -251,9 +257,17 @@ public class MapperMethod {
       return type;
     }
 
+    /**
+     * 根据mapper接口生成MappedStatement对象
+     * @param mapperInterface mapper接口
+     * @param methodName 方法名
+     * @param declaringClass 该方法申明的类
+     * @param configuration mybatis的全局配置
+     * @return
+     */
     private MappedStatement resolveMappedStatement(Class<?> mapperInterface, String methodName,
         Class<?> declaringClass, Configuration configuration) {
-      String statementId = mapperInterface.getName() + "." + methodName;
+      String statementId = mapperInterface.getName() + "." + methodName; //根据一个类的全限定类名和方法名可以唯一确定一个sql语句
       if (configuration.hasStatement(statementId)) {
         return configuration.getMappedStatement(statementId);
       } else if (mapperInterface.equals(declaringClass)) {
@@ -272,6 +286,9 @@ public class MapperMethod {
     }
   }
 
+  /**
+   * 方法标签
+   */
   public static class MethodSignature {
 
     private final boolean returnsMany;

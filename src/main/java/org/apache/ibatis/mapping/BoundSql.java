@@ -30,13 +30,13 @@ import org.apache.ibatis.session.Configuration;
  * the value from).
  * <p>
  * Can also have additional parameters that are created by the dynamic language (for loops, bind...).
- *
+ * 一个完成的SQL语句
  * @author Clinton Begin
  */
 public class BoundSql {
 
   private final String sql;
-  private final List<ParameterMapping> parameterMappings;
+  private final List<ParameterMapping> parameterMappings; //排序好的sql参数
   private final Object parameterObject;
   private final Map<String, Object> additionalParameters;
   private final MetaObject metaParameters;
