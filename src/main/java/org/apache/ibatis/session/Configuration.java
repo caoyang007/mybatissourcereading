@@ -160,7 +160,7 @@ public class Configuration {
    */
   protected Class<? extends Log> logImpl;
   /**
-   * 指定VFS的实现
+   * 指定VFS的实现，如果有多个，最后一个会是默认的VFS的实现
    */
   protected Class<? extends VFS> vfsImpl;
   /**
@@ -227,8 +227,14 @@ public class Configuration {
   protected Class<?> configurationFactory;
 
   protected final MapperRegistry mapperRegistry = new MapperRegistry(this);
+  /**
+   * 拦截器链
+   */
   protected final InterceptorChain interceptorChain = new InterceptorChain();
   protected final TypeHandlerRegistry typeHandlerRegistry = new TypeHandlerRegistry(this);
+  /**
+   * 别名的注册器
+   */
   protected final TypeAliasRegistry typeAliasRegistry = new TypeAliasRegistry();
   protected final LanguageDriverRegistry languageRegistry = new LanguageDriverRegistry();
 

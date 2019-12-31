@@ -28,6 +28,7 @@ import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 /**
  * Builds {@link SqlSession} instances.
  * @author Clinton Begin
+ * SqlSessionFactory的生成器
  */
 public class SqlSessionFactoryBuilder {
 
@@ -45,9 +46,9 @@ public class SqlSessionFactoryBuilder {
 
   /**
    * mybatis的初始化入口
-   * @param reader
-   * @param environment
-   * @param properties
+   * @param reader 字符输入流 信息是对mybatis的个性化配置
+   * @param environment 数据库信息的环境
+   * @param properties 其他一些配置信息 这些信息最终是会加到Configuration对象的variable属性中的
    * @return
    */
   public SqlSessionFactory build(Reader reader, String environment, Properties properties) {
@@ -80,6 +81,13 @@ public class SqlSessionFactoryBuilder {
     return build(inputStream, null, properties);
   }
 
+  /**
+   * 初始化SqlSessionFactory对象
+   * @param inputStream 输入字节流 信息是对mybatis的个性化配置
+   * @param environment 数据库信息的环境
+   * @param properties 其他的一些配置信息
+   * @return
+   */
   public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
     try {
       XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);

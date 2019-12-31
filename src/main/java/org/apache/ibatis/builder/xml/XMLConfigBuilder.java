@@ -70,6 +70,7 @@ public class XMLConfigBuilder extends BaseBuilder {
    */
   private final ReflectorFactory localReflectorFactory = new DefaultReflectorFactory();
 
+
   public XMLConfigBuilder(Reader reader) {
     this(reader, null, null);
   }
@@ -78,6 +79,12 @@ public class XMLConfigBuilder extends BaseBuilder {
     this(reader, environment, null);
   }
 
+  /**
+   * 对XMLConfigBuilder的实例化
+   * @param reader 字符输入流
+   * @param environment 指定的数据库配置信息的环境
+   * @param props 一些其他的配置
+   */
   public XMLConfigBuilder(Reader reader, String environment, Properties props) {
     this(new XPathParser(reader, true, props, new XMLMapperEntityResolver()), environment, props);
   }
@@ -94,6 +101,12 @@ public class XMLConfigBuilder extends BaseBuilder {
     this(new XPathParser(inputStream, true, props, new XMLMapperEntityResolver()), environment, props);
   }
 
+  /**
+   * 实例话XMLConfigBuilder对象的构造方法
+   * @param parser xml文档解析器
+   * @param environment 数据库信息的配置环境
+   * @param props 一些其他的配置信息
+   */
   private XMLConfigBuilder(XPathParser parser, String environment, Properties props) {
     super(new Configuration());
     ErrorContext.instance().resource("SQL Mapper Configuration");
@@ -104,7 +117,7 @@ public class XMLConfigBuilder extends BaseBuilder {
   }
 
   /**
-   * 解析mybatis-config.xml配置文件的入口
+   * 解析mybatis-config.xml配置文件的入口（这样说不合理，应该是解析对mybatis的配置信息）
    * 解析所有的元素标签，最后将得到的数据封装为一个Configuration对象
    * @return
    */
@@ -120,8 +133,8 @@ public class XMLConfigBuilder extends BaseBuilder {
   }
 
   /**
-   * 解析Configuration元素标签
-   * @param root
+   * 对mybatis的配置信息解析的起点
+   * @param root configuration元素的节点
    */
   private void parseConfiguration(XNode root) {
     try {
@@ -170,6 +183,7 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
     Properties props = context.getChildrenAsProperties();
     // Check that all settings are known to the configuration class
+    //这个是得到Configuration类的基本信息，看你设置的属性是否存在相应的set方法
     MetaClass metaConfig = MetaClass.forClass(Configuration.class, localReflectorFactory);
     for (Object key : props.keySet()) {
       if (!metaConfig.hasSetter(String.valueOf(key))) {
@@ -179,6 +193,12 @@ public class XMLConfigBuilder extends BaseBuilder {
     return props;
   }
 
+  /**
+   * 加载自定义的Vfs实现类，
+   * @param props 用户配置在Settings里面的setting属性 name=“” value=“”
+   * 虚拟文件系统的实现类会依次加载到VFS的一个List对象中，然后将不断更新Configuration对象的vfsImpl属性
+   * @throws ClassNotFoundException
+   */
   private void loadCustomVfs(Properties props) throws ClassNotFoundException {
     String value = props.getProperty("vfsImpl");
     if (value != null) {
@@ -193,6 +213,12 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
   }
 
+  /**
+   * 解析默认的日志实现方式
+   * 会根据logImpl属性对应的值加载类对象，然后将其设置到Configuration对象的 logImpl 属性中
+   * 然后会通知日志工厂，现在的日志实现类是用户配置的
+   * @param props settings里面的配置信息
+   */
   private void loadCustomLogImpl(Properties props) {
     Class<? extends Log> logImpl = resolveClass(props.getProperty("logImpl"));
     configuration.setLogImpl(logImpl);
@@ -200,6 +226,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 
   /**
    * 解析<typeAliases>标签及其子节点，并且通过TypeAliasRegistry完成别名注册
+   * 注册的信息是在Configuration对象的 typeAliasRegistry 属性中保存
    * @param parent
    */
   private void typeAliasesElement(XNode parent) {
@@ -229,6 +256,7 @@ public class XMLConfigBuilder extends BaseBuilder {
   /**
    * 插件式MyBatis提供的扩展机制之一，用户可以通过添加自定义插件在SQL语句执行过程中的某一点进行拦截。
    * MyBatis中自定义插件只需要实现Interceptor接口，并通过注解指定想要拦截的方法签名即可
+   * 会将每一个拦截器的实体类加载到Configuration对象的 interceptorChain 属性中
    * @param parent
    * @throws Exception
    */
@@ -280,6 +308,9 @@ public class XMLConfigBuilder extends BaseBuilder {
   /**
    * 处理<properties>标签的信息 形成Java的Properties对象，之后将该对象设置到XPathParser和Configuration的variables字段中
    * 在后面的解析中，会使用该Properties对象中的信息替换占位符
+   * 通过这个方法可以得知，在properties中配置的一些信息，property元素的信息最先被解析，如果properties属性resource url中的配置信息
+   * 和property元素中的重复，则会覆盖property中的配置，最后，我们在开始实例化SqlSessionFactory时，如果有传入Properties类型的参数
+   * ，如果和现有的属性值相同，会做最终的覆盖。
    * @param context
    * @throws Exception
    */
@@ -307,6 +338,11 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
   }
 
+  /**
+   * 将settings中配置的setting属性的信息加载到Configuration对象中
+   * 为什么不在前面解析呢？
+   * @param props 属性的信息
+   */
   private void settingsElement(Properties props) {
     configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty("autoMappingBehavior", "PARTIAL")));
     configuration.setAutoMappingUnknownColumnBehavior(AutoMappingUnknownColumnBehavior.valueOf(props.getProperty("autoMappingUnknownColumnBehavior", "NONE")));
@@ -339,7 +375,12 @@ public class XMLConfigBuilder extends BaseBuilder {
   /**
    * 在实际生产中，同一个项目可能分为开发，测试和生产等多个不同的环境，每个环境的配置可能不尽相同，Mybatis可以
    * 配置多个environment节点，每个environment对应一种环境的配置，尽管可以配置多个环境，但是每个SqlSessionFactory实例只能选择其一
-   * @param context
+   * 我们在创建SqlSessionFactory实例的时候如果有指定environment的参数，就会找id为那个参数的配置信息，如果没有的话 就找id为default
+   * 值的环境的配置信息
+   *
+   * 在这里，会根据解析的指定环境的数据源信息，事务管理器信息 实例话一个Environment对象，将改对象的信息保存到Configuration对象的
+   * environment属性中
+   * @param context environments元素的信息
    * @throws Exception
    */
   private void environmentsElement(XNode context) throws Exception {
@@ -366,7 +407,9 @@ public class XMLConfigBuilder extends BaseBuilder {
    * MyBatis不能像Hibernate那样，直接帮助开发人员屏蔽多种数据库产品在SQL语言支持方面的差异，但是在mybatis-config.xml配置文件中，
    * 通过<databaseIdProvider>定义所有支持的数据库产品的databaseId，然后在映射配置文件中定义SQL语句节点时，通过databaseId执行该
    * SQL语句应用的数据库产品
-   * @param context
+   *
+   * 改方法会根据type解析得到DataBaseIdProvider实例，然后根据该实例得到数据库的别名 就是configuration的databaseId属性值。
+   * @param context databaseIdProvider元素的信息
    * @throws Exception
    */
   private void databaseIdProviderElement(XNode context) throws Exception {
@@ -388,6 +431,12 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
   }
 
+  /**
+   * 解析transactionManager元素的信息，得到事务工厂类的实例
+   * @param context transactionManager元素的信息
+   * @return
+   * @throws Exception
+   */
   private TransactionFactory transactionManagerElement(XNode context) throws Exception {
     if (context != null) {
       String type = context.getStringAttribute("type");
@@ -399,6 +448,12 @@ public class XMLConfigBuilder extends BaseBuilder {
     throw new BuilderException("Environment declaration requires a TransactionFactory.");
   }
 
+  /**
+   * 解析datasource元素的信息，得到数据源工厂的实例
+   * @param context
+   * @return
+   * @throws Exception
+   */
   private DataSourceFactory dataSourceElement(XNode context) throws Exception {
     if (context != null) {
       String type = context.getStringAttribute("type");
@@ -412,7 +467,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 
   /**
    * 处理<typeHandlers>标签中所有的类型转化 并利用typeHandlerRegistry将其注册
-   * @param parent
+   * @param parent typeHandlers元素的信息
    */
   private void typeHandlerElement(XNode parent) {
     if (parent != null) {
@@ -441,6 +496,11 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
   }
 
+  /**
+   * 开始解析mappers元素的信息
+   * @param parent
+   * @throws Exception
+   */
   private void mapperElement(XNode parent) throws Exception {
     if (parent != null) {
       for (XNode child : parent.getChildren()) {
@@ -473,7 +533,7 @@ public class XMLConfigBuilder extends BaseBuilder {
   }
 
   /**
-   * 查找和environments标签的default属性相同的environment标签描述的信息，如果找到就返回true
+   * 判断id和environment值是否相同
    * @param id
    * @return
    */

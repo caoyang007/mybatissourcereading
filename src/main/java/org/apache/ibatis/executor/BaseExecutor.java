@@ -391,7 +391,5 @@ public abstract class BaseExecutor implements Executor {
       Object value = resultExtractor.extractObjectFromList(list, targetType);
       resultObject.setValue(property, value);
     }
-
   }
-
 }
