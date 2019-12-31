@@ -252,6 +252,7 @@ public class Configuration {
    * A map holds cache-ref relationship. The key is the namespace that
    * references a cache bound to another namespace and the value is the
    * namespace which the actual cache is bound to.
+   * 存放mapper中的cache-ref元素秒速的信息，key是mapper中的namespace值，value是 cache-ref 标签的namespace值
    */
   protected final Map<String, String> cacheRefMap = new HashMap<>();
 

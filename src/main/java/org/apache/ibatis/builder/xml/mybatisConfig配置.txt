@@ -1,16 +1,20 @@
 对configuration元素的描述
 <configuration>
-	<properties></properties>
-	<settings></settings>
-	<typeAliases></typeAliases>
-	<typeHandlers></typeHandlers>
-	<objectFactory></objectFactory>
-	<reflectorFactory></reflectorFactory>
+	<properties></properties> 只有一个这样的元素
+	<settings></settings> 只有一个这样的元素
+	<typeAliases></typeAliases> 只有一个这样的元素
+	<typeHandlers></typeHandlers> 只有一个这样的元素
+	<objectFactory></objectFactory> 只有一个这样的元素
+	<objectWrapperFactory></objectWrapperFactory> 只有一个这样的元素
+	<reflectorFactory></reflectorFactory> 只有一个这样的元素
 	<plugins></plugins>
 	<enviroments></enviroments>
 	<databaseIdProvider></databaseIdProvider>
 	<mappers></mappers>
 </configuration>
+
+对reflectorFactory元素的描述
+<reflectorFactory type="" /> type属性是必须的
 
 对databaseIdProvider元素的描述
 <databaseIdProvider type=""> type属性必须
@@ -98,8 +102,8 @@
 
 对mappers元素的描述
 <mappers>
-	<mapper></mapper>
-	<package></package>
+	<mapper></mapper> 0-无数个这样的标签
+	<package></package> 0-无数个这样的标签
 </mappers>
 
 对mapper元素的描述

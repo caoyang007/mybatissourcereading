@@ -75,6 +75,10 @@ public abstract class BaseExecutor implements Executor {
     this.wrapper = this;
   }
 
+  /**
+   * 获取事务
+   * @return
+   */
   @Override
   public Transaction getTransaction() {
     if (closed) {
@@ -262,6 +266,7 @@ public abstract class BaseExecutor implements Executor {
     }
   }
 
+  //清除本地缓存
   @Override
   public void clearLocalCache() {
     if (!closed) {

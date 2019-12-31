@@ -1,6 +1,6 @@
 对mapper元素的描述
 <mapper namespace="">
-	<cache-ref></cache-ref> 可以有多个这样的标签
+	<cache-ref></cache-ref> 可以有多个这样的标签 
 	<cache></cache> 可以有多个这样的标签
 	<resultMap></resultMap> 0-无数个这样的标签
 	<parameterMap></parameterMap> 0-无数个这样的标签
@@ -12,12 +12,16 @@
 </mapper>
 
 对cache-ref的描述
-<cache-ref namespace=""></cache-ref> namespace属性是必须的
+<cache-ref namespace=""></cache-ref> namespace属性是必须的   
+注：
+该标签的信息是保存在Configuration对象的cacheRefMap对象中的 是一个Map对象 key是mapper的namespace value是cache-ref标签的namespace属性值
 
 对cache的描述
 <cache type="" eviction="" flushInterval="" size="" readOnly="" blocking="" >
 	<property></property> 0-无数个这样的标签
 </cache>
+注：
+type是缓存的类型，默认是Prepetual eviction是缓存失效的策略，默认是lru
 
 
 对parameterMap元素的描述

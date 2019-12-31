@@ -93,9 +93,9 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
   /**
    * 开始一个SqlSession对象
    * 开启一个SqlSession对象需要Configuration对象 Configuration对象保罗万象
-   * @param execType
-   * @param level
-   * @param autoCommit
+   * @param execType 执行器的类型
+   * @param level 事务隔离的级别
+   * @param autoCommit 是否自动提交
    * @return
    */
   private SqlSession openSessionFromDataSource(ExecutorType execType, TransactionIsolationLevel level, boolean autoCommit) {
@@ -118,6 +118,12 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
     }
   }
 
+  /**
+   * 从数据库的链接对象中获取一个SqlSession对象
+   * @param execType 执行器的类型
+   * @param connection 数据库连接的对象
+   * @return
+   */
   private SqlSession openSessionFromConnection(ExecutorType execType, Connection connection) {
     try {
       boolean autoCommit;
@@ -140,6 +146,11 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
     }
   }
 
+  /**
+   * 获取一个事务工厂
+   * @param environment 环境对象
+   * @return
+   */
   private TransactionFactory getTransactionFactoryFromEnvironment(Environment environment) {
     if (environment == null || environment.getTransactionFactory() == null) {
       return new ManagedTransactionFactory();
