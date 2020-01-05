@@ -28,7 +28,7 @@ import java.sql.SQLException;
 public interface TypeHandler<T> {
 
   /**
-   * 负责将数据由JdbcType类型转换为Java类型
+   * 负责将数据由java类型转换为JdbcType类型
    * @param ps
    * @param i
    * @param parameter
@@ -39,7 +39,7 @@ public interface TypeHandler<T> {
 
   /**
    * @param columnName Colunm name, when configuration <code>useColumnLabel</code> is <code>false</code>
-   * 和其重载方法负责将数据由Java类型转换为JdbcType类型。
+   * 和其重载方法负责将数据由JdbcType类型转换为Java类型。
    */
   T getResult(ResultSet rs, String columnName) throws SQLException;
 

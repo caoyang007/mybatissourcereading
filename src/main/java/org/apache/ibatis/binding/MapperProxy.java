@@ -39,7 +39,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
   private static final Constructor<Lookup> lookupConstructor;
   private static final Method privateLookupInMethod;
   private final SqlSession sqlSession;
-  private final Class<T> mapperInterface;
+  private final Class<T> mapperInterface; //mapper接口
   private final Map<Method, MapperMethod> methodCache;
 
   public MapperProxy(SqlSession sqlSession, Class<T> mapperInterface, Map<Method, MapperMethod> methodCache) {
@@ -74,6 +74,14 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
     lookupConstructor = lookup;
   }
 
+  /**
+   * jdk动态代理必须实现的方法
+   * @param proxy 代理类
+   * @param method 被代理的方法
+   * @param args 被代理的方法的参数
+   * @return
+   * @throws Throwable
+   */
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     try {

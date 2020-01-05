@@ -34,7 +34,7 @@ import org.apache.ibatis.session.Configuration;
  */
 public final class MappedStatement {
 
-  private String resource; //应该是命名空间（后面确认）
+  private String resource; //节点中的id属性（包括命名空间前缀）
   private Configuration configuration;//mybatis的配置信息的疯转类
   private String id; //命名空间中唯一标识符(后面确定)
   private Integer fetchSize; //尝试让驱动程序每次批量返回的结果行数和这个设置值相同

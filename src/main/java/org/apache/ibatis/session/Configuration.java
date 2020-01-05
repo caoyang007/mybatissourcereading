@@ -160,7 +160,7 @@ public class Configuration {
    */
   protected Class<? extends Log> logImpl;
   /**
-   * 指定VFS的实现
+   * 指定VFS的实现，如果有多个，最后一个会是默认的VFS的实现
    */
   protected Class<? extends VFS> vfsImpl;
   /**
@@ -227,8 +227,14 @@ public class Configuration {
   protected Class<?> configurationFactory;
 
   protected final MapperRegistry mapperRegistry = new MapperRegistry(this);
+  /**
+   * 拦截器链
+   */
   protected final InterceptorChain interceptorChain = new InterceptorChain();
   protected final TypeHandlerRegistry typeHandlerRegistry = new TypeHandlerRegistry(this);
+  /**
+   * 别名的注册器
+   */
   protected final TypeAliasRegistry typeAliasRegistry = new TypeAliasRegistry();
   protected final LanguageDriverRegistry languageRegistry = new LanguageDriverRegistry();
 
@@ -261,6 +267,7 @@ public class Configuration {
    * A map holds cache-ref relationship. The key is the namespace that
    * references a cache bound to another namespace and the value is the
    * namespace which the actual cache is bound to.
+   * 存放mapper中的cache-ref元素秒速的信息，key是mapper中的namespace值，value是 cache-ref 标签的namespace值
    */
   protected final Map<String, String> cacheRefMap = new HashMap<>();
 
