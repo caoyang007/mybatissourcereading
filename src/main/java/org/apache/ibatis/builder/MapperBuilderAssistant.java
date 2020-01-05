@@ -50,7 +50,7 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 
 /**
- *
+ * 这个是XmlMapperBuilder的辅助类
  * @author Clinton Begin
  */
 public class MapperBuilderAssistant extends BaseBuilder {
@@ -122,6 +122,17 @@ public class MapperBuilderAssistant extends BaseBuilder {
     }
   }
 
+  /**
+   * 这是个一个mapper使用一个新的缓存的方法
+   * @param typeClass 使用的缓存的类型
+   * @param evictionClass 换粗数据失效的策略
+   * @param flushInterval 缓存刷新的频率
+   * @param size 缓存中数据集合的大小
+   * @param readWrite 是否可读写
+   * @param blocking 是否阻塞
+   * @param props 一些其他的配置
+   * @return
+   */
   public Cache useNewCache(Class<? extends Cache> typeClass,
       Class<? extends Cache> evictionClass,
       Long flushInterval,

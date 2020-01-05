@@ -34,7 +34,7 @@ import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.Configuration;
 
 /**
- * 负责解析SQL语句
+ * 负责解析SQL语句 select update delete select
  * @author Clinton Begin
  */
 public class XMLStatementBuilder extends BaseBuilder {

@@ -1,7 +1,7 @@
 对mapper元素的描述
 <mapper namespace="">
-	<cache-ref></cache-ref> 可以有多个这样的标签
-	<cache></cache> 可以有多个这样的标签
+	<cache-ref></cache-ref> 一个这样的标签
+	<cache></cache> 一个这样的标签
 	<resultMap></resultMap> 0-无数个这样的标签
 	<parameterMap></parameterMap> 0-无数个这样的标签
 	<sql></sql> 0-无数个这样的标签
@@ -21,7 +21,7 @@
 
 
 对parameterMap元素的描述
-<parameterMap id="" name="">  id和name属性是必须的
+<parameterMap id="" type="">  id和type属性是必须的 type是java类型的一个别名
 	<parameter></parameter>    0-无数个这样的标签
 </parameterMap> 
 
@@ -41,6 +41,9 @@ property属性是必须的 mode必须是IN OUT INOUT三个中的一个
 	<collection></collection> 0-无数个这样的标签
 	<discriminator><discriminator>  可以没有这个标签
 </resultMap>
+
+对discriminator元素的描述
+<discriminator column="" javaType="" jdbcType="" typeHandler=""></discriminator> javaType是必须的
 
 对constructor元素的描述
 <constructor>
@@ -98,7 +101,7 @@ property属性是必须的 mode必须是IN OUT INOUT三个中的一个
 
 对select元素的描述
 <select id="" parameterMap="" parameterType="" resultMap="" resultType="" resultSetType="" statementType="" fetchSize="" timeout="" flushCache="" useCache="" databaseId="" lang="" resultOrdered="" resultSets="" > id属性是必须的 resultSetType是一个FORWARD_ONLY SCROLL_INSENSITIVE SCROLL_SENSITIVE DEFAULT的枚举 statementType是一个STATEMENT PREPARED CALLABLE的枚举 flushCache是一个true和false的枚举 useCache是一个true false的枚举 resultOrdered是一个true false的枚举
-	<inclued></inclued> 0-无数个这样的标签
+	<include></include> 0-无数个这样的标签
 	<trim></trim> 0-无数个这样的标签
 	<where></where> 0-无数个这样的标签
 	<set></set> 0-无数个这样的标签
@@ -111,7 +114,7 @@ property属性是必须的 mode必须是IN OUT INOUT三个中的一个
 对insert元素的描述
 <insert id="" parameterMap="" paramerterType="" timeout="" flushCache="" statementType="" keyProperty="" useGeneratedKeys="" keyColumn="" databaseId="" lang="" > id元素是必须的 flushCache是一个true false的枚举 statementType是一个STATEMENT PREPARED CALLABLE的枚举 useGeneratedKeys是一个true false的枚举
 	<selectKey></selectKey> 0-无数个这样的标签
-	<inclued></inclued> 0-无数个这样的标签
+	<include></include> 0-无数个这样的标签
 	<trim></trim> 0-无数个这样的标签
 	<where></where> 0-无数个这样的标签
 	<set></set> 0-无数个这样的标签

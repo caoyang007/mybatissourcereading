@@ -24,17 +24,18 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
  * @author Clinton Begin
+ * 这个是对mapper文件中parameter元素的一个封装
  */
 public class ParameterMapping {
 
   private Configuration configuration;
 
-  private String property;
-  private ParameterMode mode;
-  private Class<?> javaType = Object.class;
-  private JdbcType jdbcType;
-  private Integer numericScale;
-  private TypeHandler<?> typeHandler;
+  private String property; //parameter的property属性
+  private ParameterMode mode; //参数的类型 是一个枚举 parameter的mode属性
+  private Class<?> javaType = Object.class; //参数对应的java的类型，parameter的javaType属性
+  private JdbcType jdbcType; //参数的jdbc类型 parameter的jdbcType属性
+  private Integer numericScale; //这个有点问题 ，我觉得，应该是对应的parameter的scale属性，但是解析的时候就有问题
+  private TypeHandler<?> typeHandler;  //jdbc和java的类型转换器
   private String resultMapId;
   private String jdbcTypeName;
   private String expression;
