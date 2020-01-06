@@ -61,7 +61,7 @@ public final class TypeHandlerRegistry {
    */
   private final Map<JdbcType, TypeHandler<?>>  jdbcTypeHandlerMap = new EnumMap<>(JdbcType.class);
   /**
-   * 记录了Java类型向指定JdbcType类型转换，需要使用的TypeHandler对象，列入Java类型中的String可能
+   * 记录了Java类型向指定JdbcType类型转换，需要使用的TypeHandler对象，例如Java类型中的String可能
    * 转换为数据库的char，varchar等多种类型，所以存在一对多的关系
    */
   private final Map<Type, Map<JdbcType, TypeHandler<?>>> typeHandlerMap = new ConcurrentHashMap<>();
@@ -76,6 +76,9 @@ public final class TypeHandlerRegistry {
 
   private static final Map<JdbcType, TypeHandler<?>> NULL_TYPE_HANDLER_MAP = Collections.emptyMap();
 
+  /**
+   * 默认的枚举类型的处理器
+   */
   private Class<? extends TypeHandler> defaultEnumTypeHandler = EnumTypeHandler.class;
 
   /**

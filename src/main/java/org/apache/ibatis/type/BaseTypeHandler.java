@@ -30,7 +30,7 @@ import org.apache.ibatis.session.Configuration;
  * {@link CallableStatement#wasNull()} method for handling the SQL {@code NULL} value.
  * In other words, {@code null} value handling should be performed on subclass.
  * </p>
- *
+ * 所有类型转换器的基类，继承类型引用类，实现类型处理器的接口
  * @author Clinton Begin
  * @author Simone Tripodi
  * @author Kzuki Shimizu
@@ -51,6 +51,14 @@ public abstract class BaseTypeHandler<T> extends TypeReference<T> implements Typ
     this.configuration = c;
   }
 
+  /**
+   * 实现了sql参数复制为null的情况，对参数非空的情况的实现放到了每个子类中
+   * @param ps PrepareStatement对象
+   * @param i preparestatement对象的第i个参数
+   * @param parameter java对象的类型（一般来说应该是基本类型，能对应数据库接受的数据类型）
+   * @param jdbcType 该位置的参数应该接受的jdbc的参数类型
+   * @throws SQLException
+   */
   @Override
   public void setParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
     if (parameter == null) {
@@ -66,7 +74,7 @@ public abstract class BaseTypeHandler<T> extends TypeReference<T> implements Typ
       }
     } else {
       try {
-        setNonNullParameter(ps, i, parameter, jdbcType);
+        setNonNullParameter(ps, i, parameter, jdbcType); //这里就用到了模板方法，将具体的实现放到子类，整个的架构是在父类
       } catch (Exception e) {
         throw new TypeException("Error setting non null for parameter #" + i + " with JdbcType " + jdbcType + " . "
               + "Try setting a different JdbcType for this parameter or a different configuration property. "
@@ -103,7 +111,7 @@ public abstract class BaseTypeHandler<T> extends TypeReference<T> implements Typ
   }
 
   /**
-   * 对于非空数据的处理都交给了子类
+   * 对于非空参数的赋值的处理都交给了子类
    * @param ps
    * @param i
    * @param parameter

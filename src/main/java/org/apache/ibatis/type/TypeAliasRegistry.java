@@ -102,6 +102,12 @@ public class TypeAliasRegistry {
     registerAlias("ResultSet", ResultSet.class);
   }
 
+  /**
+   * 根据别名创建类的class对象
+   * @param string
+   * @param <T>
+   * @return
+   */
   @SuppressWarnings("unchecked")
   // throws class cast exception as well if types cannot be assigned
   public <T> Class<T> resolveAlias(String string) {

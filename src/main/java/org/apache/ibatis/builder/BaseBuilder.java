@@ -112,6 +112,11 @@ public abstract class BaseBuilder {
     }
   }
 
+  /**
+   * 根据全限定类名或类的别名创建一个类的实例，调用的是类的无参构造方法
+   * @param alias 类的别名或全限定类名
+   * @return
+   */
   protected Object createInstance(String alias) {
     Class<?> clazz = resolveClass(alias);
     if (clazz == null) {
@@ -124,6 +129,12 @@ public abstract class BaseBuilder {
     }
   }
 
+  /**
+   * 根据类的全限定名或别名创建一个类的class对象
+   * @param alias
+   * @param <T>
+   * @return
+   */
   protected <T> Class<? extends T> resolveClass(String alias) {
     if (alias == null) {
       return null;
@@ -134,6 +145,7 @@ public abstract class BaseBuilder {
       throw new BuilderException("Error resolving class. Cause: " + e, e);
     }
   }
+
 
   protected TypeHandler<?> resolveTypeHandler(Class<?> javaType, String typeHandlerAlias) {
     if (typeHandlerAlias == null) {

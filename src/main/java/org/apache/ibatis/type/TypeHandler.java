@@ -29,10 +29,10 @@ public interface TypeHandler<T> {
 
   /**
    * 负责将数据由java类型转换为JdbcType类型
-   * @param ps
-   * @param i
-   * @param parameter
-   * @param jdbcType
+   * @param ps PrepareStatement对象
+   * @param i preparestatement对象的第i个参数
+   * @param parameter java对象的类型（一般来说应该是基本类型，能对应数据库接受的数据类型）
+   * @param jdbcType 该位置的参数应该接受的jdbc的参数类型
    * @throws SQLException
    */
   void setParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException;

@@ -20,7 +20,7 @@ import java.lang.reflect.Type;
 
 /**
  * References a generic type.
- *
+ * 得到泛型的实际类型 T的实际类型是什么
  * @param <T> the referenced type
  * @since 3.1.0
  * @author Simone Tripodi
