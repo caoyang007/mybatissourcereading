@@ -91,6 +91,7 @@ import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.UnknownTypeHandler;
 
 /**
+ * mapper注解生成器
  * @author Clinton Begin
  * @author Kazuki Shimizu
  */

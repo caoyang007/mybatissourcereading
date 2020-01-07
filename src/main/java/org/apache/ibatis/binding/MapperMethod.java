@@ -50,6 +50,12 @@ public class MapperMethod {
   private final SqlCommand command;
   private final MethodSignature method;
 
+  /**
+   * 对mapperMethod类实例化的构造方法
+   * @param mapperInterface mapper接口
+   * @param method mapper接口中的方法
+   * @param config mybatis的配置类
+   */
   public MapperMethod(Class<?> mapperInterface, Method method, Configuration config) {
     this.command = new SqlCommand(config, mapperInterface, method);
     this.method = new MethodSignature(config, mapperInterface, method);
@@ -261,7 +267,7 @@ public class MapperMethod {
      * 根据mapper接口生成MappedStatement对象
      * @param mapperInterface mapper接口
      * @param methodName 方法名
-     * @param declaringClass 该方法申明的类
+     * @param declaringClass 该方法申明的类/接口
      * @param configuration mybatis的全局配置
      * @return
      */
