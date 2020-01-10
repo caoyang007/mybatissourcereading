@@ -227,6 +227,7 @@ public class Configuration {
   protected Class<?> configurationFactory;
 
   protected final MapperRegistry mapperRegistry = new MapperRegistry(this);
+
   /**
    * 拦截器链
    */
@@ -252,7 +253,7 @@ public class Configuration {
   protected final Map<String, ParameterMap> parameterMaps = new StrictMap<>("Parameter Maps collection");
   protected final Map<String, KeyGenerator> keyGenerators = new StrictMap<>("Key Generators collection");
 
-  protected final Set<String> loadedResources = new HashSet<>();
+  protected final Set<String> loadedResources = new HashSet<>(); //记录已经加载的xml mapper配置文件
   protected final Map<String, XNode> sqlFragments = new StrictMap<>("XML fragments parsed from previous mappers");
 
   protected final Collection<XMLStatementBuilder> incompleteStatements = new LinkedList<>();

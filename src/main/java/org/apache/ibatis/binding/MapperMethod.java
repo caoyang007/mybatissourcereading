@@ -229,8 +229,8 @@ public class MapperMethod {
    */
   public static class SqlCommand {
 
-    private final String name;
-    private final SqlCommandType type;
+    private final String name; //全限定类名加方法名
+    private final SqlCommandType type; //sql的类型
 
 
     public SqlCommand(Configuration configuration, Class<?> mapperInterface, Method method) {
@@ -381,6 +381,12 @@ public class MapperMethod {
       return returnsOptional;
     }
 
+    /**
+     * 得到一个方法中指定类型的参数的位置
+     * @param method 方法
+     * @param paramType 指定类型的参数
+     * @return
+     */
     private Integer getUniqueParamIndex(Method method, Class<?> paramType) {
       Integer index = null;
       final Class<?>[] argTypes = method.getParameterTypes();

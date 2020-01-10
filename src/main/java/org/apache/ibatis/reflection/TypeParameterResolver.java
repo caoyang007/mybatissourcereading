@@ -52,6 +52,8 @@ public class TypeParameterResolver {
    * @return The return type of the method as {@link Type}. If it has type parameters in the declaration,<br>
    *         they will be resolved to the actual runtime {@link Type}s.
    * 得到方法的返回类型
+   * @param  method:方法引用
+   * @param srcType:引用方法的Type
    */
   public static Type resolveReturnType(Method method, Type srcType) {
     Type returnType = method.getGenericReturnType();
@@ -73,6 +75,13 @@ public class TypeParameterResolver {
     return result;
   }
 
+  /**
+   * 返回一个方法的返回类型
+   * @param type 方法的返回类型
+   * @param srcType 引用方法的类
+   * @param declaringClass 方法的申明类，通常是应用方法的类的接口或父类
+   * @return
+   */
   private static Type resolveType(Type type, Type srcType, Class<?> declaringClass) {
     if (type instanceof TypeVariable) { //解析TypeVariable类型
       return resolveTypeVar((TypeVariable<?>) type, srcType, declaringClass);

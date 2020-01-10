@@ -61,7 +61,8 @@ public class ParamNameResolver {
   public ParamNameResolver(Configuration config, Method method) {
     //得到方法的参数的类型
     final Class<?>[] paramTypes = method.getParameterTypes();
-    final Annotation[][] paramAnnotations = method.getParameterAnnotations(); //获取方法的参数注解信息，参数的位置是数组的第一个下标，参数的注解信息是第二个下标
+    //获取方法的参数注解信息，参数的位置是数组的第一个下标，参数的注解信息是第二个下标
+    final Annotation[][] paramAnnotations = method.getParameterAnnotations();
     final SortedMap<Integer, String> map = new TreeMap<>();
     int paramCount = paramAnnotations.length;
     // get names from @Param annotations

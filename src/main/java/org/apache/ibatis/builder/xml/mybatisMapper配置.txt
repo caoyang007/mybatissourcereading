@@ -21,7 +21,7 @@
 
 
 对parameterMap元素的描述
-<parameterMap id="" name="">  id和name属性是必须的
+<parameterMap id="" type="">  id和type属性是必须的
 	<parameter></parameter>    0-无数个这样的标签
 </parameterMap> 
 

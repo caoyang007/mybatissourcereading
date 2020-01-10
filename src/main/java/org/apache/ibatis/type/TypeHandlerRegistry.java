@@ -95,6 +95,7 @@ public final class TypeHandlerRegistry {
   public TypeHandlerRegistry(Configuration configuration) {
     this.unknownTypeHandler = new UnknownTypeHandler(configuration);
 
+
     register(Boolean.class, new BooleanTypeHandler());
     register(boolean.class, new BooleanTypeHandler());
     register(JdbcType.BOOLEAN, new BooleanTypeHandler());
@@ -200,10 +201,12 @@ public final class TypeHandlerRegistry {
    * A default {@link TypeHandler} is {@link org.apache.ibatis.type.EnumTypeHandler}.
    * @param typeHandler a type handler class for {@link Enum}
    * @since 3.4.5
+   * 设置一个默认的枚举处理类型
    */
   public void setDefaultEnumTypeHandler(Class<? extends TypeHandler> typeHandler) {
     this.defaultEnumTypeHandler = typeHandler;
   }
+
 
   public boolean hasTypeHandler(Class<?> javaType) {
     return hasTypeHandler(javaType, null);
@@ -266,6 +269,11 @@ public final class TypeHandlerRegistry {
     return (TypeHandler<T>) handler;
   }
 
+  /**
+   * 根据java type的类型得到对应的jdbc转换器的类型
+   * @param type
+   * @return
+   */
   private Map<JdbcType, TypeHandler<?>> getJdbcHandlerMap(Type type) {
     Map<JdbcType, TypeHandler<?>> jdbcHandlerMap = typeHandlerMap.get(type);
     if (NULL_TYPE_HANDLER_MAP.equals(jdbcHandlerMap)) {
@@ -374,6 +382,12 @@ public final class TypeHandlerRegistry {
 
   // java type + handler
 
+  /**
+   * 如果是java type和handler的组合，需要解析java type类上面的注解，找对应的JdbcType枚举类型
+   * @param javaType
+   * @param typeHandler
+   * @param <T>
+   */
   public <T> void register(Class<T> javaType, TypeHandler<? extends T> typeHandler) {
     register((Type) javaType, typeHandler);
   }
@@ -401,6 +415,7 @@ public final class TypeHandlerRegistry {
   public <T> void register(Class<T> type, JdbcType jdbcType, TypeHandler<? extends T> handler) {
     register((Type) type, jdbcType, handler);
   }
+
 
   private void register(Type javaType, JdbcType jdbcType, TypeHandler<?> handler) {
     if (javaType != null) {

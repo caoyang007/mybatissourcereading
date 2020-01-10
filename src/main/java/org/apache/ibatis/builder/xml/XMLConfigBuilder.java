@@ -234,6 +234,8 @@ public class XMLConfigBuilder extends BaseBuilder {
       for (XNode child : parent.getChildren()) {
         if ("package".equals(child.getName())) {
           String typeAliasPackage = child.getStringAttribute("name");
+          //我觉得这个可以改善
+          //typeAliasRegistry.registerAliases(typeAliasPackage);
           configuration.getTypeAliasRegistry().registerAliases(typeAliasPackage);
         } else {
           String alias = child.getStringAttribute("alias");
