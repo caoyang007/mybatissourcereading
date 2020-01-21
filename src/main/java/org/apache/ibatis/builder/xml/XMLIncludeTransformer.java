@@ -31,6 +31,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
+ * 处理包含 include 元素的 数据库操作的节点信息
  * @author Frank D. Martinez [mnesarco]
  */
 public class XMLIncludeTransformer {

@@ -30,6 +30,8 @@ import org.apache.ibatis.session.SqlSession;
 /**
  * @author Clinton Begin
  * @author Eduardo Macarron
+ * mapper接口的代理对象，一个接口一个代理对象
+ * jdk的动态代理是实现InvocationHandler接口即可，jdk默认会为接口生成一个代理类
  */
 public class MapperProxy<T> implements InvocationHandler, Serializable {
 
@@ -42,6 +44,12 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
   private final Class<T> mapperInterface; //mapper接口
   private final Map<Method, MapperMethod> methodCache;
 
+  /**
+   * 实例化一个mapper的代理类
+   * @param sqlSession
+   * @param mapperInterface
+   * @param methodCache
+   */
   public MapperProxy(SqlSession sqlSession, Class<T> mapperInterface, Map<Method, MapperMethod> methodCache) {
     this.sqlSession = sqlSession;
     this.mapperInterface = mapperInterface;

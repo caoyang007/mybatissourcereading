@@ -57,7 +57,7 @@ public class XMLMapperBuilder extends BaseBuilder {
 
   private final XPathParser parser;
   private final MapperBuilderAssistant builderAssistant;
-  private final Map<String, XNode> sqlFragments;
+  private final Map<String, XNode> sqlFragments; //保存的是sql标签的配置信息
   private final String resource;
 
   @Deprecated
@@ -81,6 +81,7 @@ public class XMLMapperBuilder extends BaseBuilder {
     this(new XPathParser(inputStream, true, configuration.getVariables(), new XMLMapperEntityResolver()),
         configuration, resource, sqlFragments);
   }
+
 
   private XMLMapperBuilder(XPathParser parser, Configuration configuration, String resource, Map<String, XNode> sqlFragments) {
     super(configuration);
@@ -142,6 +143,10 @@ public class XMLMapperBuilder extends BaseBuilder {
     }
   }
 
+  /**
+   * 解析sql操作的各种配置信息
+   * @param list
+   */
   private void buildStatementFromContext(List<XNode> list) {
     if (configuration.getDatabaseId() != null) {
       buildStatementFromContext(list, configuration.getDatabaseId());

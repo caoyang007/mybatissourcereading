@@ -61,6 +61,11 @@ public class MapperRegistry {
     return knownMappers.containsKey(type);
   }
 
+  /**
+   * 建立mapper接口和其代理对象的映射
+   * @param type
+   * @param <T>
+   */
   public <T> void addMapper(Class<T> type) {
     if (type.isInterface()) {
       if (hasMapper(type)) {
@@ -91,6 +96,9 @@ public class MapperRegistry {
   }
 
   /**
+   * 将一个包下面的所有接口全部注册为mapper
+   * @param packageName:包名
+   * @param superType: 指定要对包中什么类型的类进行处理，传的是需要被处理的类的超类class对象
    * @since 3.2.2
    */
   public void addMappers(String packageName, Class<?> superType) {

@@ -21,7 +21,7 @@ import org.apache.ibatis.transaction.TransactionFactory;
 
 /**
  * @author Clinton Begin
- * 包含一个应用的事务管理和连接池的配置
+ * 对事务工厂和数据源和环境id的封装
  */
 public final class Environment {
   private final String id; //指定环境的唯一id 在xml配置中表现为id="development"

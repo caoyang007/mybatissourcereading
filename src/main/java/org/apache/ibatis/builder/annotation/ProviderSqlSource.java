@@ -30,6 +30,7 @@ import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.Configuration;
 
 /**
+ * 通过xxProvider注解生成SqlSource
  * @author Clinton Begin
  * @author Kazuki Shimizu
  */

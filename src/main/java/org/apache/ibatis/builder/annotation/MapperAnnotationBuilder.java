@@ -102,7 +102,7 @@ public class MapperAnnotationBuilder {
 
   private final Configuration configuration;
   private final MapperBuilderAssistant assistant;
-  private final Class<?> type;
+  private final Class<?> type; //接口的class类型
 
   static {
     SQL_ANNOTATION_TYPES.add(Select.class);
@@ -124,11 +124,11 @@ public class MapperAnnotationBuilder {
   }
 
   public void parse() {
-    String resource = type.toString();
+    String resource = type.toString(); //type.toString()=>class com.xxx.xxx.xxMapper
     if (!configuration.isResourceLoaded(resource)) {
       loadXmlResource();
       configuration.addLoadedResource(resource);
-      assistant.setCurrentNamespace(type.getName());
+      assistant.setCurrentNamespace(type.getName()); //type.getName()=>com.xxx.xxx.xxMapper
       parseCache();
       parseCacheRef();
       Method[] methods = type.getMethods();
@@ -161,6 +161,9 @@ public class MapperAnnotationBuilder {
     }
   }
 
+  /**
+   * 包里面的每一个mapper接口都可以有一个xml与其对应 package指定的包
+   */
   private void loadXmlResource() {
     // Spring may not know the real resource name so we check a flag
     // to prevent loading again a resource twice
@@ -178,12 +181,17 @@ public class MapperAnnotationBuilder {
         }
       }
       if (inputStream != null) {
+        //这个里面的assistant.getConfiguration()是什么鬼，为什么不能用configuration引用呢
         XMLMapperBuilder xmlParser = new XMLMapperBuilder(inputStream, assistant.getConfiguration(), xmlResource, configuration.getSqlFragments(), type.getName());
         xmlParser.parse();
       }
     }
   }
 
+
+  /**
+   * 解析Mapper接口中的CacheNamespace注解
+   */
   private void parseCache() {
     CacheNamespace cacheDomain = type.getAnnotation(CacheNamespace.class);
     if (cacheDomain != null) {
@@ -296,6 +304,10 @@ public class MapperAnnotationBuilder {
     return null;
   }
 
+  /**
+   * 重点来了 解析mapper接口中的方法
+   * @param method mapper中的接口
+   */
   void parseStatement(Method method) {
     Class<?> parameterTypeClass = getParameterType(method);
     LanguageDriver languageDriver = getLanguageDriver(method);
@@ -392,6 +404,12 @@ public class MapperAnnotationBuilder {
     return configuration.getLanguageDriver(langClass);
   }
 
+  /**
+   * 得到一个方法的参数类型，实现逻辑是如果方法中的参数是RowBounds或者ResultHandler类型的话，忽略，如果只有一个参数的话，就是该参数的返回类型
+   * 如果有多个参数的话 就返回一个自定义的Map
+   * @param method
+   * @return
+   */
   private Class<?> getParameterType(Method method) {
     Class<?> parameterType = null;
     Class<?>[] parameterTypes = method.getParameterTypes();
@@ -465,6 +483,7 @@ public class MapperAnnotationBuilder {
     return returnType;
   }
 
+
   private SqlSource getSqlSourceFromAnnotations(Method method, Class<?> parameterType, LanguageDriver languageDriver) {
     try {
       Class<? extends Annotation> sqlAnnotationType = getSqlAnnotationType(method);
@@ -527,6 +546,7 @@ public class MapperAnnotationBuilder {
     return chooseAnnotationType(method, SQL_PROVIDER_ANNOTATION_TYPES);
   }
 
+  //查看一个方法的sql操作注解
   private Class<? extends Annotation> chooseAnnotationType(Method method, Set<Class<? extends Annotation>> types) {
     for (Class<? extends Annotation> type : types) {
       Annotation annotation = method.getAnnotation(type);

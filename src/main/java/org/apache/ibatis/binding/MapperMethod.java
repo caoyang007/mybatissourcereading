@@ -234,8 +234,8 @@ public class MapperMethod {
 
 
     public SqlCommand(Configuration configuration, Class<?> mapperInterface, Method method) {
-      final String methodName = method.getName();
-      final Class<?> declaringClass = method.getDeclaringClass();
+      final String methodName = method.getName(); //方法名
+      final Class<?> declaringClass = method.getDeclaringClass(); //方法是在那个类申明的
       MappedStatement ms = resolveMappedStatement(mapperInterface, methodName, declaringClass,
           configuration);
       if (ms == null) {

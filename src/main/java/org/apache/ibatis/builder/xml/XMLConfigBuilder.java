@@ -500,6 +500,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 
   /**
    * 开始解析mappers元素的信息
+   *
    * @param parent
    * @throws Exception
    */

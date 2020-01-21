@@ -68,9 +68,9 @@ public class XMLStatementBuilder extends BaseBuilder {
     String nodeName = context.getNode().getNodeName();
     SqlCommandType sqlCommandType = SqlCommandType.valueOf(nodeName.toUpperCase(Locale.ENGLISH));
     boolean isSelect = sqlCommandType == SqlCommandType.SELECT;
-    boolean flushCache = context.getBooleanAttribute("flushCache", !isSelect);
-    boolean useCache = context.getBooleanAttribute("useCache", isSelect);
-    boolean resultOrdered = context.getBooleanAttribute("resultOrdered", false);
+    boolean flushCache = context.getBooleanAttribute("flushCache", !isSelect); //默认不是查询的所有数据库操作都要刷新缓存
+    boolean useCache = context.getBooleanAttribute("useCache", isSelect); //默认是查询的操作的要使用缓存
+    boolean resultOrdered = context.getBooleanAttribute("resultOrdered", false); //默认返回的结果是无序的
 
     // Include Fragments before parsing
     XMLIncludeTransformer includeParser = new XMLIncludeTransformer(configuration, builderAssistant);
@@ -178,6 +178,13 @@ public class XMLStatementBuilder extends BaseBuilder {
     }
   }
 
+  /**
+   * 验证sql语句是否是指定的数据库的
+   * @param id 数据库操作的sql对应的id
+   * @param databaseId 改sql操作的节点配置的databaseId的值
+   * @param requiredDatabaseId 全局的databaseId的值
+   * @return
+   */
   private boolean databaseIdMatchesCurrent(String id, String databaseId, String requiredDatabaseId) {
     if (requiredDatabaseId != null) {
       return requiredDatabaseId.equals(databaseId);

@@ -16,6 +16,7 @@
 package org.apache.ibatis.session;
 
 /**
+ * 定义分页的一个标识，offset limit
  * @author Clinton Begin
  */
 public class RowBounds {

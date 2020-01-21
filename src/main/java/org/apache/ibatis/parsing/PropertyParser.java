@@ -50,16 +50,20 @@ public class PropertyParser {
     // Prevent Instantiation
   }
 
+
   public static String parse(String string, Properties variables) {
     VariableTokenHandler handler = new VariableTokenHandler(variables);
     GenericTokenParser parser = new GenericTokenParser("${", "}", handler);
     return parser.parse(string);
   }
 
+  /**
+   * 这是一个变量解析器类
+   */
   private static class VariableTokenHandler implements TokenHandler {
-    private final Properties variables;
-    private final boolean enableDefaultValue;
-    private final String defaultValueSeparator;
+    private final Properties variables; //configuration对象的variable属性值
+    private final boolean enableDefaultValue; //是否允许获取默认的对象
+    private final String defaultValueSeparator; //默认值的分割符
 
     private VariableTokenHandler(Properties variables) {
       this.variables = variables;
@@ -71,6 +75,11 @@ public class PropertyParser {
       return (variables == null) ? defaultValue : variables.getProperty(key, defaultValue);
     }
 
+    /**
+     * 处理参数替换的方法
+     * @param content name:caoyang  handleToken(content)=>caoyang
+     * @return
+     */
     @Override
     public String handleToken(String content) {
       if (variables != null) {

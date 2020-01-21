@@ -253,7 +253,7 @@ public class Configuration {
   protected final Map<String, ParameterMap> parameterMaps = new StrictMap<>("Parameter Maps collection");
   protected final Map<String, KeyGenerator> keyGenerators = new StrictMap<>("Key Generators collection");
 
-  protected final Set<String> loadedResources = new HashSet<>(); //记录已经加载的xml mapper配置文件
+  protected final Set<String> loadedResources = new HashSet<>(); //记录已经加载的xml mapper配置文件或mapper接口的toString形式
   protected final Map<String, XNode> sqlFragments = new StrictMap<>("XML fragments parsed from previous mappers");
 
   protected final Collection<XMLStatementBuilder> incompleteStatements = new LinkedList<>();
@@ -933,6 +933,9 @@ public class Configuration {
     }
   }
 
+  /**
+   * 解析待定的ResultMap
+   */
   private void parsePendingResultMaps() {
     if (incompleteResultMaps.isEmpty()) {
       return;

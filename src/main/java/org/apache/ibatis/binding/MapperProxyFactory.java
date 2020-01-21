@@ -23,6 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.ibatis.session.SqlSession;
 
 /**
+ * mapper代理对象的工厂类
+ * 这个工厂就是用到了简单工厂模式，将一个类的实例需要的复杂过程封装，
  * @author Lasse Voss
  */
 public class MapperProxyFactory<T> {

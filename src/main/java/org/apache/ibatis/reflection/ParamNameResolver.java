@@ -120,6 +120,7 @@ public class ParamNameResolver {
    * </p>
    * 因为SqlSession所有需要参数的方法都只有一个Object参数，但是我们写的接口可以有多个参数，这里是将所有的参数封装为一个Map返回
    * args是实参
+   * @param  args:用户输入的参数值的数组
    */
   public Object getNamedParams(Object[] args) {
     final int paramCount = names.size();
